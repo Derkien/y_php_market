@@ -35,24 +35,24 @@ echo '</pre>';
 
 $queries = array();
 //1
-$queries[]  = "EXPLAIN SELECT g.`id` AS `one`, gg.`id` AS `two`
+$queries[]  = "SELECT g.`id` AS `one`, gg.`id` AS `two`
 FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name` AND g.`id` < gg.`id`
 ";
 //2
-$queries[]  = "EXPLAIN SELECT g.`id` AS `one`, gg.`id` AS `two`
+$queries[]  = "SELECT g.`id` AS `one`, gg.`id` AS `two`
 FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name`
 WHERE g.`id` < gg.`id`
 ";
 //3
-$queries[] = "EXPLAIN SELECT DISTINCT (CASE WHEN g.`id` > gg.`id` THEN g.`id` ELSE gg.`id` END) as `one`,
+$queries[] = "SELECT DISTINCT (CASE WHEN g.`id` > gg.`id` THEN g.`id` ELSE gg.`id` END) as `one`,
 (CASE WHEN g.`id` < gg.`id` THEN g.`id` ELSE gg.`id` END) as `two`
 FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name` AND g.`id` <> gg.`id`
 ";
 //4
-$queries[]  = "EXPLAIN SELECT (CASE WHEN g.`id` > gg.`id` THEN g.`id` ELSE gg.`id` END) as `one`,
+$queries[]  = "SELECT (CASE WHEN g.`id` > gg.`id` THEN g.`id` ELSE gg.`id` END) as `one`,
 (CASE WHEN g.`id` < gg.`id` THEN g.`id` ELSE gg.`id` END) as `two`
 FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name` AND g.`id` <> gg.`id`
@@ -61,12 +61,8 @@ GROUP BY `one`, `two`
 foreach ($queries as $sql) {
     echo "<pre>Результат для \r\n".$sql."</pre>";
     $print = '';
-    foreach($dbCon->query($sql) as $v) {
-        var_dump($v);
-    }
-    echo "<br />\n";
-    /*foreach ($dbCon->query($sql) as $item) {
+    foreach ($dbCon->query($sql) as $item) {
         $print .= '(' . $item['one'] . ',' . $item['two'] . '), ';
-    }*/
+    }
     echo rtrim($print, ', ');
 }
