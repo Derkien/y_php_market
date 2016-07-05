@@ -58,6 +58,7 @@ FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name` AND g.`id` <> gg.`id`
 GROUP BY `one`, `two`
 ";
+// запросы в цикле... ай-ай-ай... ))
 foreach ($queries as $sql) {
     echo "<pre>Результат для \r\n" . $sql . "</pre>";
     $print = '';
