@@ -7,7 +7,7 @@ require 'autoloader.php';
 $dbService = DatabaseService::getInstance();
 
 $dbCon = $dbService->getConnection();
-// создаем табличку, если ент
+// создаем табличку, если ее нет
 $dbCon->query("
     CREATE TABLE IF NOT EXISTS `goods` (
       `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
