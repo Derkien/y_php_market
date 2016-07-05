@@ -35,12 +35,12 @@ echo '</pre>';
 
 $queries = array();
 //1
-$queries[]  = "SELECT g.`id` AS `one`, gg.`id` AS `two`
+$queries[] = "SELECT g.`id` AS `one`, gg.`id` AS `two`
 FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name` AND g.`id` < gg.`id`
 ";
 //2
-$queries[]  = "SELECT g.`id` AS `one`, gg.`id` AS `two`
+$queries[] = "SELECT g.`id` AS `one`, gg.`id` AS `two`
 FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name`
 WHERE g.`id` < gg.`id`
@@ -52,14 +52,14 @@ FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name` AND g.`id` <> gg.`id`
 ";
 //4
-$queries[]  = "SELECT (CASE WHEN g.`id` > gg.`id` THEN g.`id` ELSE gg.`id` END) as `one`,
+$queries[] = "SELECT (CASE WHEN g.`id` > gg.`id` THEN g.`id` ELSE gg.`id` END) as `one`,
 (CASE WHEN g.`id` < gg.`id` THEN g.`id` ELSE gg.`id` END) as `two`
 FROM `goods` g
 INNER JOIN `goods` gg ON g.`name` = gg.`name` AND g.`id` <> gg.`id`
 GROUP BY `one`, `two`
 ";
 foreach ($queries as $sql) {
-    echo "<pre>Результат для \r\n".$sql."</pre>";
+    echo "<pre>Результат для \r\n" . $sql . "</pre>";
     $print = '';
     foreach ($dbCon->query($sql) as $item) {
         $print .= '(' . $item['one'] . ',' . $item['two'] . '), ';

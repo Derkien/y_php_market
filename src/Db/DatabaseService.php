@@ -6,11 +6,11 @@ use PDOException;
 
 class DatabaseService
 {
-    // сам класс
+    // объект класса
     private static $inst = null;
     // соединение
     private $dbCon = null;
-    // ползователь
+    // пользователь
     private $user = "root";
     // пароль
     private $pw = "";
@@ -31,8 +31,9 @@ class DatabaseService
      * Экземпляр класса
      * @return DatabaseService|null
      */
-    public static function getInstance(){
-        if(is_null(self::$inst)){
+    public static function getInstance()
+    {
+        if (is_null(self::$inst)) {
             self::$inst = new DatabaseService();
         }
         return self::$inst;
